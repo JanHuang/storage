@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: janhuang
  * Date: 15/4/13
- * Time: 下午12:30
+ * Time: 下午4:17
  * Github: https://www.github.com/janhuang 
  * Coding: https://www.coding.net/janhuang
  * SegmentFault: http://segmentfault.com/u/janhuang
@@ -11,14 +11,9 @@
  * Gmail: bboyjanhuang@gmail.com
  */
 
-namespace Dobee\Storage\Memcache;
+namespace Dobee\Storage;
 
-use Dobee\Storage\StorageInterface;
-
-class Memcache extends \Memcached implements StorageInterface
+interface StorageInterface
 {
-    public function initialize(array $config = array())
-    {
-        // TODO: Implement initializeConnect() method.
-    }
+    public function initialize(array $config = array());
 }

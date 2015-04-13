@@ -13,7 +13,12 @@
 
 namespace Dobee\Storage\File;
 
-class FileStorage 
-{
+use Dobee\Storage\StorageInterface;
 
+class FileStorage implements StorageInterface
+{
+    public function initialize(array $config = array())
+    {
+        // TODO: Implement initializeConnect() method.
+    }
 }

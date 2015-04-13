@@ -13,7 +13,12 @@
 
 namespace Dobee\Storage\Redis;
 
-class Redis extends \Redis
-{
+use Dobee\Storage\StorageInterface;
 
+class Redis extends \Redis implements StorageInterface
+{
+    public function initialize(array $config = array())
+    {
+        $this->connect($config['host'], isset($config['port']) ? $config['port'] : 6379, isset($config['timeout']) ? $config['timeout'] : 5);
+    }
 }

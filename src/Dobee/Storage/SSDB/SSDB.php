@@ -13,11 +13,16 @@
 
 namespace Dobee\Storage\SSDB;
 
+use Dobee\Storage\StorageInterface;
+
 if (!class_exists('SimpleSSDB')) {
     include __DIR__ . '/SimpleSSDB.php';
 }
 
-class SSDB extends \SimpleSSDB
+class SSDB extends \SimpleSSDB implements StorageInterface
 {
-
+    public function initialize(array $config = array())
+    {
+        // TODO: Implement initializeConnect() method.
+    }
 }
