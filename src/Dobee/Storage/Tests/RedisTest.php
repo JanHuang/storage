@@ -27,23 +27,23 @@ class RedisTest extends \PHPUnit_Framework_TestCase
         $this->redis = new Redis();
 
         $this->redis->initialize(array(
-            'host' => '10.1.8.218',
+            'host' => '10.1.8.116',
             'port' => '6379',
         ));
     }
 
     public function testPing()
     {
-        $this->assertTrue($this->redis->ping());
+//        $this->assertTrue($this->redis->ping());
     }
 
     public function testSet()
     {
-//        $this->redis->set('name', 'janhuang');
+        $this->redis->set('name', 'janhuang');
     }
 
     public function testGet()
     {
-//        $this->assertEquals('janhuang', $this->redis->get('name'));
+        $this->assertEquals('janhuang', $this->redis->get('name'));
     }
 }
