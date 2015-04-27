@@ -17,8 +17,8 @@ use Dobee\Storage\StorageInterface;
 
 class Memcache extends \Memcached implements StorageInterface
 {
-    public function initialize(array $config = array())
+    public function __construct(array $options = array())
     {
-        // TODO: Implement initializeConnect() method.
+        parent::__construct(isset($options['persistent_id']) ? $options['persistent_id'] : '');
     }
 }

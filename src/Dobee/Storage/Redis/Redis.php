@@ -17,8 +17,12 @@ use Dobee\Storage\StorageInterface;
 
 class Redis extends \Redis implements StorageInterface
 {
-    public function initialize(array $config = array())
+    public function __construct(array $config = array())
     {
-        $this->connect($config['host'], isset($config['port']) ? $config['port'] : 6379, isset($config['timeout']) ? $config['timeout'] : 5);
+        $this->connect(
+            isset($config['host']) ? $config['host'] : '127.0.0.1',
+            isset($config['port']) ? $config['port'] : 6379,
+            isset($config['timeout']) ? $config['timeout'] : 5
+        );
     }
 }

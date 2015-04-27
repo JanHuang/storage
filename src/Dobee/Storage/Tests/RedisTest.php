@@ -24,17 +24,10 @@ class RedisTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->redis = new Redis();
-
-        $this->redis->initialize(array(
-            'host' => '10.1.8.116',
+        $this->redis = new Redis(array(
+            'host' => '11.11.11.11',
             'port' => '6379',
         ));
-    }
-
-    public function testPing()
-    {
-//        $this->assertTrue($this->redis->ping());
     }
 
     public function testSet()

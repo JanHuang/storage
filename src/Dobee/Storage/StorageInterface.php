@@ -15,5 +15,5 @@ namespace Dobee\Storage;
 
 interface StorageInterface
 {
-    public function initialize(array $config = array());
+    public function __construct(array $config = array());
 }
