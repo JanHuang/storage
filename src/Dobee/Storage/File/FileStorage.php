@@ -17,8 +17,6 @@ use Dobee\Storage\StorageInterface;
 
 class FileStorage implements StorageInterface
 {
-    public function initialize(array $config = array())
-    {
-        // TODO: Implement initializeConnect() method.
-    }
+    public function __construct(array $options = array())
+    {}
 }

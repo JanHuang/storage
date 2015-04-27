@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: janhuang
- * Date: 15/4/15
- * Time: 下午4:50
+ * Date: 15/4/27
+ * Time: 下午9:26
  * Github: https://www.github.com/janhuang 
  * Coding: https://www.coding.net/janhuang
  * SegmentFault: http://segmentfault.com/u/janhuang
@@ -13,26 +13,23 @@
 
 namespace Dobee\Storage\Tests;
 
-use Dobee\Storage\Memcache\Memcache;
+use Dobee\Storage\Memcached\Memcached;
 
-class MemTest extends \PHPUnit_Framework_TestCase
+class MemdTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var Memcache
-     */
     private $mem;
 
     public function setUp()
     {
-        $this->mem = new Memcache();
+        $this->mem = new Memcached(array('host' => '11.11.11.11'));
     }
 
-    public function testMemSet()
+    public function testSet()
     {
         $this->mem->set('name', 'janhuang');
     }
 
-    public function testMemGet()
+    public function testGet()
     {
         $this->assertEquals('janhuang', $this->mem->get('name'));
     }

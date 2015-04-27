@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: janhuang
- * Date: 15/4/13
- * Time: 下午12:30
+ * Date: 15/4/27
+ * Time: 下午6:40
  * Github: https://www.github.com/janhuang 
  * Coding: https://www.coding.net/janhuang
  * SegmentFault: http://segmentfault.com/u/janhuang
@@ -11,15 +11,21 @@
  * Gmail: bboyjanhuang@gmail.com
  */
 
-namespace Dobee\Storage\Memcache;
+namespace Dobee\Storage\Memcached;
 
 use Dobee\Storage\StorageInterface;
 
-class Memcache extends \Memcache implements StorageInterface
+class Memcached extends \Memcached implements StorageInterface
 {
     public function __construct(array $options = array())
     {
-        $this->connect(
+        parent::__construct(isset($options['persistent_id']) ? $options['persistent_id'] : '');
+
+        if (isset($options['options']) && is_array($options['options'])) {
+            $this->setOptions($options['options']);
+        }
+
+        $this->addServer(
             isset($options['host']) ? $options['host'] : '127.0.0.1',
             isset($options['port']) ? $options['port'] : 11211
         );
