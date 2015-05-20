@@ -15,8 +15,16 @@ namespace Dobee\Storage\Redis;
 
 use Dobee\Storage\StorageInterface;
 
+/**
+ * Class Redis
+ *
+ * @package Dobee\Storage\Redis
+ */
 class Redis extends \Redis implements StorageInterface
 {
+    /**
+     * @param array $config
+     */
     public function __construct(array $config = array())
     {
         $this->connect(
