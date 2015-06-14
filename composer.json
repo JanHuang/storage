@@ -2,19 +2,17 @@
     "name": "dobee/storage",
     "description": "Dobee php simple framework Storage Component",
     "license": "MIT",
+    "type": "library",
+    "keywords": ["storage", "dobee"],
     "authors": [
         {
             "name": "janhuang",
-            "email": "384099566@qq.com"
+            "email": "bboyjanhuang@gmail.com"
         }
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=5.4",
-        "phpunit/phpunit": "4.5.*"
-    },
-    "config": {
-        "bin-dir": "bin"
+        "php": ">=5.4"
     },
     "autoload": {
         "psr-4": {
