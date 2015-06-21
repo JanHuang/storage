@@ -11,9 +11,9 @@
  * Gmail: bboyjanhuang@gmail.com
  */
 
-namespace Dobee\Storage\SSDB;
+namespace FastD\Storage\SSDB;
 
-use Dobee\Storage\StorageInterface;
+use FastD\Storage\StorageInterface;
 
 if (!class_exists('SimpleSSDB')) {
     include __DIR__ . '/SimpleSSDB.php';

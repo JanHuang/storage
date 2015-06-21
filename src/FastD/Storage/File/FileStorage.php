@@ -11,9 +11,9 @@
  * Gmail: bboyjanhuang@gmail.com
  */
 
-namespace Dobee\Storage\File;
+namespace FastD\Storage\File;
 
-use Dobee\Storage\StorageInterface;
+use FastD\Storage\StorageInterface;
 
 class FileStorage implements StorageInterface
 {

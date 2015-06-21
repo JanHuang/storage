@@ -11,14 +11,14 @@
  * Gmail: bboyjanhuang@gmail.com
  */
 
-namespace Dobee\Storage\Tests;
+namespace FastD\Storage\Tests;
 
-use Dobee\Storage\StorageManager;
+use FastD\Storage\StorageManager;
 
 class StorageTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Dobee\Storage\StorageManager
+     * @var \FastD\Storage\StorageManager
      */
     private $manager;
 

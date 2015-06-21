@@ -11,14 +11,14 @@
  * Gmail: bboyjanhuang@gmail.com
  */
 
-namespace Dobee\Storage\Redis;
+namespace FastD\Storage\Redis;
 
-use Dobee\Storage\StorageInterface;
+use FastD\Storage\StorageInterface;
 
 /**
  * Class Redis
  *
- * @package Dobee\Storage\Redis
+ * @package FastD\Storage\Redis
  */
 class Redis extends \Redis implements StorageInterface
 {

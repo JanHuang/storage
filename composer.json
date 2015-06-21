@@ -1,9 +1,9 @@
 {
-    "name": "dobee/storage",
-    "description": "Dobee php simple framework Storage Component",
+    "name": "fastd/storage",
+    "description": "FastD php simple framework Storage Component",
     "license": "MIT",
     "type": "library",
-    "keywords": ["storage", "dobee"],
+    "keywords": ["storage", "FastD"],
     "authors": [
         {
             "name": "janhuang",
@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Dobee\\": "src/Dobee"
+            "FastD\\": "src/FastD"
         }
     }
 }

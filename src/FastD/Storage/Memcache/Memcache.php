@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: janhuang
- * Date: 15/4/27
- * Time: 下午6:40
+ * Date: 15/4/13
+ * Time: 下午12:30
  * Github: https://www.github.com/janhuang 
  * Coding: https://www.coding.net/janhuang
  * SegmentFault: http://segmentfault.com/u/janhuang
@@ -11,21 +11,15 @@
  * Gmail: bboyjanhuang@gmail.com
  */
 
-namespace Dobee\Storage\Memcached;
+namespace FastD\Storage\Memcache;
 
-use Dobee\Storage\StorageInterface;
+use FastD\Storage\StorageInterface;
 
-class Memcached extends \Memcached implements StorageInterface
+class Memcache extends \Memcache implements StorageInterface
 {
     public function __construct(array $options = array())
     {
-        parent::__construct(isset($options['persistent_id']) ? $options['persistent_id'] : '');
-
-        if (isset($options['options']) && is_array($options['options'])) {
-            $this->setOptions($options['options']);
-        }
-
-        $this->addServer(
+        $this->connect(
             isset($options['host']) ? $options['host'] : '127.0.0.1',
             isset($options['port']) ? $options['port'] : 11211
         );

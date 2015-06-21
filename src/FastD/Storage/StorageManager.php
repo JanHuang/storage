@@ -11,12 +11,12 @@
  * Gmail: bboyjanhuang@gmail.com
  */
 
-namespace Dobee\Storage;
+namespace FastD\Storage;
 
 /**
  * Class StorageManager
  *
- * @package Dobee\Storage
+ * @package FastD\Storage
  */
 class StorageManager
 {
@@ -29,13 +29,13 @@ class StorageManager
      * @var array
      */
     private $maps = array(
-        'redis'     => 'Dobee\\Storage\\Redis\\Redis',
-        'memcache'  => 'Dobee\\Storage\\Memcache\\Memcache',
-        'memcached' => 'Dobee\\Storage\\Memcached\\Memcached',
-        'ssdb'      => 'Dobee\\Storage\\SSDB\\SSDB',
-        'disque'    => 'Dobee\\Storage\\Disque\\Disque',
-        'file'      => 'Dobee\\Storage\\File\\File',
-        'apc'       => 'Dobee\\Storage\\APC\\Apc',
+        'redis'     => 'FastD\\Storage\\Redis\\Redis',
+        'memcache'  => 'FastD\\Storage\\Memcache\\Memcache',
+        'memcached' => 'FastD\\Storage\\Memcached\\Memcached',
+        'ssdb'      => 'FastD\\Storage\\SSDB\\SSDB',
+        'disque'    => 'FastD\\Storage\\Disque\\Disque',
+        'file'      => 'FastD\\Storage\\File\\File',
+        'apc'       => 'FastD\\Storage\\APC\\Apc',
     );
 
     /**

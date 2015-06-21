@@ -11,7 +11,7 @@
  * Gmail: bboyjanhuang@gmail.com
  */
 
-namespace Dobee\Storage;
+namespace FastD\Storage;
 
 interface StorageInterface
 {
