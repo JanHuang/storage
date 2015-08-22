@@ -32,5 +32,9 @@ class Redis extends \Redis implements StorageInterface
             isset($config['port']) ? $config['port'] : 6379,
             isset($config['timeout']) ? $config['timeout'] : 5
         );
+
+        if (isset($config['auth'])) {
+            $this->auth($config['auth']);
+        }
     }
 }

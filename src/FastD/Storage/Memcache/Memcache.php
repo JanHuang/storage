@@ -17,11 +17,11 @@ use FastD\Storage\StorageInterface;
 
 class Memcache extends \Memcache implements StorageInterface
 {
-    public function __construct(array $options = array())
+    public function __construct(array $config = array())
     {
         $this->connect(
-            isset($options['host']) ? $options['host'] : '127.0.0.1',
-            isset($options['port']) ? $options['port'] : 11211
+            isset($config['host']) ? $config['host'] : '127.0.0.1',
+            isset($config['port']) ? $config['port'] : 11211
         );
     }
 }
