@@ -19,7 +19,7 @@ if (!class_exists('SimpleSSDB')) {
     include __DIR__ . '/SimpleSSDB.php';
 }
 
-class SSDB extends \SimpleSSDB implements StorageInterface
+class Ssdb extends \SimpleSSDB implements StorageInterface
 {
     public function initialize(array $config = array())
     {

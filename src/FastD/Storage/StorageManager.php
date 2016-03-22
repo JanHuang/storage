@@ -13,6 +13,11 @@
 
 namespace FastD\Storage;
 
+use FastD\Storage\Memcache\Memcache;
+use FastD\Storage\Memcached\Memcached;
+use FastD\Storage\Redis\Redis;
+use FastD\Storage\SSDB\Ssdb;
+
 /**
  * Class StorageManager
  *
@@ -29,13 +34,10 @@ class StorageManager
      * @var array
      */
     private $maps = array(
-        'redis'     => 'FastD\\Storage\\Redis\\Redis',
-        'memcache'  => 'FastD\\Storage\\Memcache\\Memcache',
-        'memcached' => 'FastD\\Storage\\Memcached\\Memcached',
-        'ssdb'      => 'FastD\\Storage\\SSDB\\SSDB',
-        'disque'    => 'FastD\\Storage\\Disque\\Disque',
-        'file'      => 'FastD\\Storage\\File\\File',
-        'apc'       => 'FastD\\Storage\\APC\\Apc',
+        'redis'     => Redis::class,
+        'memcache'  => Memcache::class,
+        'memcached' => Memcached::class,
+        'ssdb'      => Ssdb::class,
     );
 
     /**
