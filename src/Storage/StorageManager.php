@@ -35,7 +35,6 @@ class StorageManager
      */
     private $maps = array(
         'redis'     => Redis::class,
-        'memcache'  => Memcache::class,
         'memcached' => Memcached::class,
         'ssdb'      => Ssdb::class,
     );
