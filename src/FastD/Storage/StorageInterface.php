@@ -15,5 +15,5 @@ namespace FastD\Storage;
 
 interface StorageInterface
 {
-    public function __construct(array $config = array());
+    public function __construct(array $config = []);
 }

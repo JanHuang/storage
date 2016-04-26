@@ -12,12 +12,17 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=5.4"
+        "php": ">=7.0"
     },
     "autoload": {
         "psr-4": {
             "FastD\\": "src/FastD"
         }
+    },
+    "suggests": {
+        "ext-redis": "Allow redis.",
+        "ext-memcached": "Allow memcached.",
+        "ext-ssdb": "Allow ssdb."
     },
     "extra": {
         "branch-alias": {

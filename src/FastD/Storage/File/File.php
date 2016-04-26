@@ -15,7 +15,7 @@ namespace FastD\Storage\File;
 
 use FastD\Storage\StorageInterface;
 
-class FileStorage implements StorageInterface
+class File implements StorageInterface
 {
     public function __construct(array $options = array())
     {}
