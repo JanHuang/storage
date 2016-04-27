@@ -18,6 +18,18 @@ use FastD\Storage\Memcached\Memcached;
 
 class MemcachedTest extends \PHPUnit_Framework_TestCase
 {
+    public function testMemcachedInstance()
+    {
+        $memcached = Memcached::connect([
+            'host' => '11.11.11.44',
+            'port' => '11211'
+        ]);
+
+        $memcached->add('name', 'jan');
+
+        $this->assertEquals('jan', $memcached->get('name'));
+    }
+
     public function testCache()
     {
         $memcached = new Memcached([
@@ -25,8 +37,8 @@ class MemcachedTest extends \PHPUnit_Framework_TestCase
             'port' => '11211'
         ]);
 
-        var_dump($memcached->set('age', '18', 11));
+        $memcached->set('age', '18');
 
-//        $this->assertEquals(18, $memcached->get('age'));
+        $this->assertEquals(18, $memcached->get('age'));
     }
 }

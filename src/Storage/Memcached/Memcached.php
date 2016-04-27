@@ -61,7 +61,6 @@ class Memcached extends AbstractStorage implements CacheInterface
      */
     public function set($name, $value, $ttl = null)
     {
-        print_r(static::$storage);
         return static::$storage->set($name, $value, $ttl);
     }
 
