@@ -77,6 +77,8 @@ $redis->mset($name, $value);
 ### Memcached
 
 ```php
+use FastD\Storage\Memcached\Memcached;
+
 $memcached = new Memcached([
     'host' => '',
     'port' => ''
@@ -88,6 +90,8 @@ $memcached->set('age', '18');
 原生操作
 
 ```php
+use FastD\Storage\Memcached\Memcached;
+
 $memcached = Memcached::connect([
     'host' => '',
     'port' => ''
@@ -97,6 +101,8 @@ $memcached = Memcached::connect([
 ### SSDB
 
 ```php
+use FastD\Storage\Ssdb\Ssdb;
+
 $ssdb = new Ssdb([
     'host' => '',
     'port' => ''
@@ -106,6 +112,8 @@ $ssdb = new Ssdb([
 原生操作
 
 ```php
+use FastD\Storage\Ssdb\Ssdb;
+
 $ssdb = Ssdb::connect([
     'host' => '',
     'port' => ''
