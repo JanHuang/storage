@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: janhuang
- * Date: 16/4/26
- * Time: 下午11:32
+ * Date: 16/4/27
+ * Time: 下午5:24
  * Github: https://www.github.com/janhuang
  * Coding: https://www.coding.net/janhuang
  * SegmentFault: http://segmentfault.com/u/janhuang
@@ -14,43 +14,48 @@
 
 namespace FastD\Storage;
 
-/**
- * Interface ListInterface
- *
- * @package FastD\Storage
- */
-interface ListInterface
+interface CacheInterface
 {
-    /**
-     * @param $name
-     * @return mixed
-     */
-    public function list($name);
-
     /**
      * @param $name
      * @param $value
      * @return mixed
      */
-    public function push($name, $value);
+    public function set($name, $value);
 
     /**
      * @param $name
      * @return mixed
      */
-    public function pop($name);
+    public function get($name);
 
     /**
      * @param $name
      * @return mixed
      */
-    public function length($name);
+    public function has($name);
 
     /**
      * @param $name
-     * @param $start
-     * @param $end
      * @return mixed
      */
-    public function range($name, $start, $end);
+    public function del($name);
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function ttl($name);
+
+    /**
+     * @param $name
+     * @param $ttl
+     * @return mixed
+     */
+    public function expire($name, $ttl);
+
+    /**
+     * @return mixed
+     */
+    public function isHit();
 }

@@ -21,22 +21,36 @@ class RedisTest extends \PHPUnit_Framework_TestCase
     /**
      * @var Redis
      */
-    protected $redis;
+    protected $storage;
+
+    const CONFIG = [
+        'host' => '11.11.11.44',
+        'port' => 6379
+    ];
 
     public function setUp()
     {
-        $this->redis = new Redis([
-            'host' => '11.11.11.44',
-        ]);
+        $this->storage = new Redis(self::CONFIG);
     }
 
-    public function testSetAndGet()
+    public function testRedisInstance()
     {
-        $this->redis->set('name', 'jan');
+        $redis = Redis::connect(self::CONFIG);
+
+        $this->assertInstanceOf('\Redis', $redis);
+
+        $redis->set('name', 'janhuang');
+
+        $this->assertEquals('janhuang', $redis->get('name'));
     }
 
-    public function testGet()
+    public function testCache()
     {
-        $this->assertEquals('jan', $this->redis->get('name'));
+        $this->storage->set('name', 'jan');
+    }
+
+    public function testCacheGet()
+    {
+        $this->assertEquals('jan', $this->storage->get('name'));
     }
 }

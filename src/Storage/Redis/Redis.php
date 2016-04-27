@@ -13,162 +13,114 @@
 
 namespace FastD\Storage\Redis;
 
-use FastD\Storage\StorageInterface;
+use FastD\Storage\AbstractStorage;
+use FastD\Storage\CacheInterface;
 
 /**
  * Class Redis
  *
  * @package FastD\Storage\Redis
  */
-class Redis implements StorageInterface
+class Redis extends AbstractStorage implements CacheInterface
 {
     /**
      * @var \Redis
      */
-    protected $redis;
+    protected static $storage;
+
+    /**
+     * Redis constructor.
+     * @param array|null $config
+     */
+    public function __construct(array $config = null)
+    {
+        static::$storage = new \Redis();
+
+        if (!static::$storage->connect($config['host'], $config['port'] ?? '6379', $config['timeout'] ?? 0.0)) {
+            throw new \RuntimeException(sprintf('Host["%s"] is not connections.', $config['host'] . ($config['port'] ?? '6379')));
+        }
+
+        if (isset($config['auth'])) {
+            static::$storage->auth($config['auth']);
+        }
+    }
 
     /**
      * @param array $config
+     * @param bool $flag
+     * @return \Redis
      */
-    public function __construct(array $config = array())
+    public static function connect(array $config = null, $flag = false)
     {
-        $this->redis = new \Redis();
-
-        $this->redis->connect($config['host'], $config['port'] ?? 6379, isset($config['timeout']) ? $config['timeout'] : 5);
-
-        if (isset($config['auth'])) {
-            $this->redis->auth($config['auth']);
+        if (null === static::$storage || $flag) {
+            $redis = new static($config);
+            unset($redis);
         }
 
-        unset($config);
-    }
-
-    /**
-     * @param $name
-     * @return bool
-     */
-    public function list($name)
-    {
-        return true;
+        return static::$storage;
     }
 
     /**
      * @param $name
      * @param $value
-     * @return int
-     */
-    public function push($name, $value)
-    {
-        return $this->redis->lPush($name, $value);
-    }
-
-    /**
-     * @param $name
-     * @return string
-     */
-    public function pop($name)
-    {
-        return $this->redis->lPop($name);
-    }
-
-    /**
-     * @param $name
-     * @return int
-     */
-    public function length($name)
-    {
-        return $this->redis->lLen($name);
-    }
-
-    /**
-     * @param $name
-     * @param $start
-     * @param $end
-     * @return array
-     */
-    public function range($name, $start, $end)
-    {
-        return $this->redis->lRange($name, $start, $end);
-    }
-
-    /**
-     * @param $name
-     * @param $value
-     * @return bool
+     * @return mixed
      */
     public function set($name, $value)
     {
-        return $this->redis->set($name, $value);
+        return static::$storage->set($name, $value);
     }
 
     /**
      * @param $name
-     * @return bool|string
+     * @return mixed
      */
     public function get($name)
     {
-        return $this->redis->get($name);
+        return static::$storage->get($name);
     }
 
     /**
      * @param $name
-     * @return bool
+     * @return mixed
      */
     public function has($name)
     {
-        return $this->redis->exists($name);
+        return static::$storage->exists($name);
     }
 
     /**
      * @param $name
-     * @return int
+     * @return mixed
      */
     public function del($name)
     {
-        return $this->redis->del($name);
+        return static::$storage->del($name);
     }
 
     /**
      * @param $name
-     * @return int
+     * @return mixed
      */
     public function ttl($name)
     {
-        return $this->redis->ttl($name);
+        return static::$storage->ttl($name);
     }
 
     /**
      * @param $name
      * @param $ttl
-     * @return bool
+     * @return mixed
      */
     public function expire($name, $ttl)
     {
-        return $this->redis->expire($name, $ttl);
+        return static::$storage->expire($name, $ttl);
     }
 
     /**
-     * @param $name
-     * @return array
-     */
-    public function keys($name)
-    {
-        return $this->redis->keys($name);
-    }
-
-    /**
-     * @return bool
+     * @return mixed
      */
     public function isHit()
     {
         return true;
-    }
-
-    /**
-     *
-     */
-    public function __destruct()
-    {
-        $this->redis = null;
     }
 }

@@ -2,28 +2,27 @@
 /**
  * Created by PhpStorm.
  * User: janhuang
- * Date: 15/4/13
- * Time: 下午4:17
- * Github: https://www.github.com/janhuang 
+ * Date: 16/4/27
+ * Time: 下午12:09
+ * Github: https://www.github.com/janhuang
  * Coding: https://www.coding.net/janhuang
  * SegmentFault: http://segmentfault.com/u/janhuang
  * Blog: http://segmentfault.com/blog/janhuang
  * Gmail: bboyjanhuang@gmail.com
+ * WebSite: http://www.janhuang.me
  */
 
 namespace FastD\Storage;
 
 /**
- * Interface StorageInterface
+ * Class AbstractStorage
  *
  * @package FastD\Storage
  */
-interface StorageInterface
+abstract class AbstractStorage implements StorageInterface
 {
     /**
-     * @param array $config
-     * @param bool $flag
-     * @return mixed
+     * @var mixed
      */
-    public static function connect(array $config = null, $flag = false);
+    protected static $storage;
 }
