@@ -13,7 +13,6 @@
 
 namespace FastD\Storage;
 
-use FastD\Storage\Memcache\Memcache;
 use FastD\Storage\Memcached\Memcached;
 use FastD\Storage\Redis\Redis;
 use FastD\Storage\SSDB\Ssdb;
