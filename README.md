@@ -1,5 +1,8 @@
 # Storage
 
+![Building](https://api.travis-ci.org/JanHuang/storage.svg?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/fastd/storage/v/stable)](https://packagist.org/packages/fastd/storage) [![Total Downloads](https://poser.pugx.org/fastd/storage/downloads)](https://packagist.org/packages/fastd/storage) [![Latest Unstable Version](https://poser.pugx.org/fastd/storage/v/unstable)](https://packagist.org/packages/fastd/storage) [![License](https://poser.pugx.org/fastd/storage/license)](https://packagist.org/packages/fastd/storage)
+
 简单的 PHP 存储类组件，支持原生 Memcached, Redis, SSDB 等操作。
 
 ## 要求
