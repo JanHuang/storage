@@ -37,7 +37,7 @@ class Redis extends AbstractStorage implements CacheInterface
         static::$storage = new \Redis();
 
         if (!static::$storage->connect($config['host'], $config['port'] ?? '6379', $config['timeout'] ?? 0.0)) {
-            throw new \RuntimeException(sprintf('Host["%s"] is not connections.', $config['host'] . ($config['port'] ?? '6379')));
+            throw new \RuntimeException(sprintf('Host["%s"] is not connections.', $config['host'] . ':' . ($config['port'] ?? '6379')));
         }
 
         if (isset($config['auth'])) {

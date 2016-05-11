@@ -18,11 +18,11 @@ use FastD\Storage\Redis\Redis;
 use FastD\Storage\SSDB\Ssdb;
 
 /**
- * Class StorageManager
+ * Class Storage
  *
  * @package FastD\Storage
  */
-class StorageManager
+class Storage
 {
     /**
      * @var array
@@ -57,14 +57,19 @@ class StorageManager
      */
     public function getConnection($connection)
     {
-        if (isset($this->storage[$connection])) {
-            return $this->storage[$connection];
+        if (!isset($this->config[$connection])) {
+            throw new \RuntimeException(sprintf('Storage config ["%s"] is undefined.', $connection));
         }
-        
         $config = $this->config[$connection];
 
-        $this->storage[$connection] = new $this->maps[$config['type']]($config);
+        $name = $connection . ':' . $config['host'];
 
-        return $this->storage[$connection];
+        if (isset($this->storage[$name])) {
+            return $this->storage[$name];
+        }
+
+        $this->storage[$name] = new $this->maps[$config['type']]($config);
+
+        return $this->storage[$name];
     }
 }
