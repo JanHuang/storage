@@ -68,7 +68,7 @@ class Storage
             return $this->storage[$name];
         }
 
-        $this->storage[$name] = new $this->maps[$config['type']]($config);
+        $this->storage[$name] = new $this->maps[$config['type'] ?? 'redis']($config);
 
         return $this->storage[$name];
     }
