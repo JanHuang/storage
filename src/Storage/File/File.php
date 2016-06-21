@@ -52,7 +52,7 @@ class File extends \SplFileObject implements CacheInterface
      */
     public function set($content, $context = null, $ttl = 0)
     {
-        return file_put_contents($this->getFilename(), $content);
+        return file_put_contents($this->getPathname(), $content);
     }
 
     /**
@@ -61,7 +61,7 @@ class File extends \SplFileObject implements CacheInterface
      */
     public function get($name = null)
     {
-        return file_get_contents($this->getFilename());
+        return file_get_contents($this->getPathname());
     }
 
     /**
