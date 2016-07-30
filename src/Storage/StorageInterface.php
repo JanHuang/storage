@@ -23,7 +23,7 @@ interface StorageInterface
     /**
      * @param array $config
      * @param bool $flag
-     * @return mixed
+     * @return static
      */
     public static function connect(array $config = null, $flag = false);
 }
