@@ -18,7 +18,7 @@ namespace FastD\Storage;
  *
  * @package FastD\Storage
  */
-interface StorageInterface extends CacheInterface
+interface StorageInterface
 {
     /**
      * @param array $config
@@ -26,4 +26,40 @@ interface StorageInterface extends CacheInterface
      * @return static
      */
     public static function connect(array $config = null, $flag = false);
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function getCache($name);
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function hasCache($name);
+
+    /**
+     * @param $name
+     * @param $content
+     * @param \DateTime|null $dateTime
+     * @return mixed
+     */
+    public function setCache($name, $content, \DateTime $dateTime = null);
+
+    /**
+     * @return mixed
+     */
+    public function clearCaches();
+
+    /**
+     * @param array $name
+     * @return mixed
+     */
+    public function deleteCaches(array $name);
+
+    /**
+     * @return mixed
+     */
+    public function persistCache();
 }

@@ -21,7 +21,7 @@ use FastD\Storage\CacheInterface;
  *
  * @package FastD\Storage\Redis
  */
-class Redis extends AbstractStorage implements CacheInterface
+class Redis extends AbstractStorage
 {
     /**
      * @var \Redis
