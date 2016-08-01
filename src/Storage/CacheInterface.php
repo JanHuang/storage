@@ -17,24 +17,16 @@ namespace FastD\Storage;
 interface CacheInterface
 {
     /**
-     * @param $name
      * @param $value
      * @param int $ttl
      * @return mixed
      */
-    public function set($name, $value, $ttl = 0);
+    public function set($value, $ttl = 0);
 
     /**
-     * @param $name
      * @return mixed
      */
-    public function get($name);
-
-    /**
-     * @param $name
-     * @return mixed
-     */
-    public function has($name);
+    public function get();
 
     /**
      * @param $name

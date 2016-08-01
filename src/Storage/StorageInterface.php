@@ -18,7 +18,7 @@ namespace FastD\Storage;
  *
  * @package FastD\Storage
  */
-interface StorageInterface
+interface StorageInterface extends CacheInterface
 {
     /**
      * @param array $config
