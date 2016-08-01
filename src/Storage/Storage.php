@@ -14,24 +14,34 @@
 
 namespace FastD\Storage;
 
+use FastD\Storage\Driver\DriverInterface;
+
 /**
- * Class AbstractStorage
+ * Class Storage
  *
  * @package FastD\Storage
  */
 class Storage implements StorageInterface
 {
-    const DEFAULT_DRIVER = 'redis';
-
-    /**
-     * @var mixed
-     */
-    protected static $storage;
-
     /**
      * @var CacheInterface[]
      */
     protected $caches = [];
+
+    /**
+     * @var DriverInterface
+     */
+    protected $driver;
+
+    /**
+     * Storage constructor.
+     *
+     * @param DriverInterface $driver
+     */
+    public function __construct(DriverInterface $driver)
+    {
+        $this->driver = $driver;
+    }
 
     /**
      * @param $name
@@ -54,16 +64,6 @@ class Storage implements StorageInterface
     public function hasCache($name)
     {
         return isset($this->caches[$name]);
-    }
-
-    /**
-     * @param array $config
-     * @param bool $flag
-     * @return static
-     */
-    public static function connect(array $config = null, $flag = false)
-    {
-        // TODO: Implement connect() method.
     }
 
     /**

@@ -14,6 +14,8 @@
 
 namespace FastD\Storage;
 
+use DateTime;
+
 /**
  * Interface CacheInterface
  * @package FastD\Storage
@@ -27,27 +29,21 @@ interface CacheInterface
 
     /**
      * @param $value
-     * @param \DateTime $dateTime
+     * @param DateTime $dateTime
      * @return mixed
      */
-    public function setCache($value, \DateTime $dateTime);
+    public function setContent($value, DateTime $dateTime);
 
     /**
      * @return mixed
      */
-    public function getCache();
+    public function getContent();
 
     /**
-     * @param \DateTime $dateTime
+     * @param DateTime $dateTime
      * @return $this
      */
-    public function ttl(\DateTime $dateTime);
-
-    /**
-     * @param \DateTime $dateTime
-     * @return $this
-     */
-    public function expire(\DateTime $dateTime);
+    public function expire(DateTime $dateTime);
 
     /**
      * @return mixed

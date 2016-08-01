@@ -6,13 +6,42 @@
  */
 namespace FastD\Storage;
 
+use DateTime;
+
+/**
+ * Class Cache
+ *
+ * @package FastD\Storage
+ */
 class Cache implements CacheInterface
 {
+    /**
+     * @var string
+     */
     protected $name;
 
-    public function __construct($name)
+    /**
+     * @var mixed
+     */
+    protected $content;
+
+    /**
+     * @var DateTime $expire
+     */
+    protected $expire;
+
+    /**
+     * Cache constructor.
+     *
+     * @param $name
+     * @param $content
+     * @param DateTime|null $dateTime
+     */
+    public function __construct($name, $content, DateTime $dateTime = null)
     {
         $this->name = $name;
+
+        $this->setCache($content, $dateTime);
     }
 
     /**
@@ -25,38 +54,33 @@ class Cache implements CacheInterface
 
     /**
      * @param $value
-     * @param \DateTime $dateTime
+     * @param DateTime $dateTime
      * @return mixed
      */
-    public function setCache($value, \DateTime $dateTime)
+    public function setContent($value, DateTime $dateTime = null)
     {
-        // TODO: Implement setCache() method.
+        $this->content = $value;
+
+        return $this->expire($dateTime);
     }
 
     /**
      * @return mixed
      */
-    public function getCache()
+    public function getContent()
     {
-        // TODO: Implement getCache() method.
+        return $this->content;
     }
 
     /**
-     * @param \DateTime $dateTime
+     * @param DateTime $dateTime
      * @return $this
      */
-    public function ttl(\DateTime $dateTime)
+    public function expire(DateTime $dateTime = null)
     {
-        // TODO: Implement ttl() method.
-    }
+        $this->expire = $dateTime;
 
-    /**
-     * @param \DateTime $dateTime
-     * @return $this
-     */
-    public function expire(\DateTime $dateTime)
-    {
-        // TODO: Implement expire() method.
+        return $this;
     }
 
     /**
@@ -64,11 +88,6 @@ class Cache implements CacheInterface
      */
     public function isHit()
     {
-        // TODO: Implement isHit() method.
-    }
 
-    public function __toString()
-    {
-        // TODO: Implement __toString() method.
     }
 }

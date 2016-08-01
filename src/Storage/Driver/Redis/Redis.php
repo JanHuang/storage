@@ -11,17 +11,16 @@
  * Gmail: bboyjanhuang@gmail.com
  */
 
-namespace FastD\Storage\Redis;
+namespace FastD\Storage\Driver\Redis;
 
-use FastD\Storage\AbstractStorage;
-use FastD\Storage\CacheInterface;
+use FastD\Storage\Driver\DriverInterface;
 
 /**
  * Class Redis
  *
  * @package FastD\Storage\Redis
  */
-class Redis extends AbstractStorage
+class Redis implements DriverInterface
 {
     /**
      * @var \Redis
@@ -32,7 +31,11 @@ class Redis extends AbstractStorage
      * Redis constructor.
      * @param array|null $config
      */
-    public function __construct(array $config = null)
+    public function __construct(array $config = [
+        'host' => '127.0.0.1',
+        'port' => '6379',
+        'timeout' => 0.0
+    ])
     {
         static::$storage = new \Redis();
 

@@ -21,13 +21,6 @@ namespace FastD\Storage;
 interface StorageInterface
 {
     /**
-     * @param array $config
-     * @param bool $flag
-     * @return static
-     */
-    public static function connect(array $config = null, $flag = false);
-
-    /**
      * @param $name
      * @return CacheInterface
      */
