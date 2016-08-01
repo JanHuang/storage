@@ -57,42 +57,6 @@ class Storage implements StorageInterface
     }
 
     /**
-     * @param $name
-     * @param $content
-     * @param \DateTime|null $dateTime
-     * @return mixed
-     */
-    public function setCache($name, $content, \DateTime $dateTime = null)
-    {
-        $this->caches[$name] = new Cache($name);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function clearCaches()
-    {
-
-    }
-
-    /**
-     * @param array $name
-     * @return mixed
-     */
-    public function deleteCaches(array $name)
-    {
-        // TODO: Implement deleteCaches() method.
-    }
-
-    /**
-     * @return mixed
-     */
-    public function persistCache()
-    {
-        // TODO: Implement persistCache() method.
-    }
-
-    /**
      * @param array $config
      * @param bool $flag
      * @return static
@@ -100,5 +64,44 @@ class Storage implements StorageInterface
     public static function connect(array $config = null, $flag = false)
     {
         // TODO: Implement connect() method.
+    }
+
+    /**
+     * @param CacheInterface $cache
+     * @return $this
+     */
+    public function setCache(CacheInterface $cache)
+    {
+        $this->caches[$cache->getName()] = $cache;
+
+        return $this;
+    }
+
+    /**
+     * @param CacheInterface $cache
+     * @return $this
+     */
+    public function persistCache(CacheInterface $cache)
+    {
+        $this->caches[$cache->getName()] = $cache;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function clearCaches()
+    {
+        // TODO: Implement clearCaches() method.
+    }
+
+    /**
+     * @param array $name
+     * @return bool
+     */
+    public function deleteCaches(array $name)
+    {
+        // TODO: Implement deleteCaches() method.
     }
 }

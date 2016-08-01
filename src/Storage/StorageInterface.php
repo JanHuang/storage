@@ -29,37 +29,36 @@ interface StorageInterface
 
     /**
      * @param $name
-     * @return mixed
+     * @return CacheInterface
      */
     public function getCache($name);
 
     /**
      * @param $name
-     * @return mixed
+     * @return bool
      */
     public function hasCache($name);
 
     /**
-     * @param $name
-     * @param $content
-     * @param \DateTime|null $dateTime
-     * @return mixed
+     * @param CacheInterface $cache
+     * @return $this
      */
-    public function setCache($name, $content, \DateTime $dateTime = null);
+    public function setCache(CacheInterface $cache);
 
     /**
-     * @return mixed
+     * @param CacheInterface $cache
+     * @return $this
+     */
+    public function persistCache(CacheInterface $cache);
+
+    /**
+     * @return bool
      */
     public function clearCaches();
 
     /**
      * @param array $name
-     * @return mixed
+     * @return bool
      */
     public function deleteCaches(array $name);
-
-    /**
-     * @return mixed
-     */
-    public function persistCache();
 }
