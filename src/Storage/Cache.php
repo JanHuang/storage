@@ -8,12 +8,19 @@ namespace FastD\Storage;
 
 class Cache implements CacheInterface
 {
+    protected $name;
+
+    public function __construct($name)
+    {
+        $this->name = $name;
+    }
+
     /**
      * @return string
      */
     public function getName()
     {
-        // TODO: Implement getName() method.
+        return $this->name;
     }
 
     /**
@@ -58,5 +65,10 @@ class Cache implements CacheInterface
     public function isHit()
     {
         // TODO: Implement isHit() method.
+    }
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
     }
 }

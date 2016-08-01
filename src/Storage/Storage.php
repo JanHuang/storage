@@ -19,33 +19,41 @@ namespace FastD\Storage;
  *
  * @package FastD\Storage
  */
-abstract class AbstractStorage implements StorageInterface
+class Storage implements StorageInterface
 {
+    const DEFAULT_DRIVER = 'redis';
+
     /**
      * @var mixed
      */
     protected static $storage;
 
+    /**
+     * @var CacheInterface[]
+     */
     protected $caches = [];
 
     /**
      * @param $name
-     * @return mixed
+     * @return CacheInterface
+     * @throws InvalidArgumentException
      */
     public function getCache($name)
     {
         if (!$this->hasCache($name)) {
             throw new InvalidArgumentException($name);
         }
+
+        return $this->caches[$name];
     }
 
     /**
      * @param $name
-     * @return mixed
+     * @return bool
      */
     public function hasCache($name)
     {
-        // TODO: Implement hasCache() method.
+        return isset($this->caches[$name]);
     }
 
     /**
@@ -56,7 +64,7 @@ abstract class AbstractStorage implements StorageInterface
      */
     public function setCache($name, $content, \DateTime $dateTime = null)
     {
-        // TODO: Implement setCache() method.
+        $this->caches[$name] = new Cache($name);
     }
 
     /**
@@ -64,7 +72,7 @@ abstract class AbstractStorage implements StorageInterface
      */
     public function clearCaches()
     {
-        // TODO: Implement clearCaches() method.
+
     }
 
     /**
@@ -82,5 +90,15 @@ abstract class AbstractStorage implements StorageInterface
     public function persistCache()
     {
         // TODO: Implement persistCache() method.
+    }
+
+    /**
+     * @param array $config
+     * @param bool $flag
+     * @return static
+     */
+    public static function connect(array $config = null, $flag = false)
+    {
+        // TODO: Implement connect() method.
     }
 }

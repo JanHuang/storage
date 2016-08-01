@@ -34,13 +34,5 @@ class StorageTest extends \PHPUnit_Framework_TestCase
                 'port' => 11211
             ],
         ]);
-
-        $redis = $storage->getConnection('read');
-
-        $this->assertInstanceOf(Redis::class, $redis);
-
-        $mem = $storage->getConnection('mem');
-
-        $this->assertInstanceOf(Memcached::class, $mem);
     }
 }
