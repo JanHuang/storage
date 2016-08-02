@@ -24,21 +24,63 @@ use SplFileObject;
  */
 class File extends StorageDriver
 {
+    const OPEN_MODE = 'rw+';
+
+    protected $path;
+
     /**
      * File constructor.
-     * @param $file_name
+     *
+     * @param string $path
      */
-    public function __construct($file_name)
+    public function __construct($path)
     {
-        if (!file_exists(dirname($file_name))) {
-            mkdir(dirname($file_name), 0755, true);
+        $this->targetDirectory($path);
+    }
+
+    /**
+     * @param $path
+     * @return bool
+     */
+    protected function targetDirectory($path)
+    {
+        if (!file_exists($path)) {
+            mkdir($path, 0755, true);
         }
 
-        if (!file_exists($file_name)) {
-            touch($file_name);
+        $this->path = $path;
+
+        return true;
+    }
+
+    /**
+     * @param $name
+     * @param $force
+     * @return bool
+     */
+    protected function targetFile($name, $force = true)
+    {
+        $file = str_replace('//', '/', $this->path . DIRECTORY_SEPARATOR . $name);
+
+        if (!file_exists($name) || $force) {
+            $this->targetDirectory(dirname($file));
+            touch($file);
         }
 
-        $this->driver = new SplFileObject($file_name);
+        return $file;
+    }
+
+    /**
+     * @param $name
+     * @return SplFileObject
+     */
+    protected function openCacheFile($name)
+    {
+        $cacheFile = $this->targetFile($name);
+
+        $this->driver = new SplFileObject($cacheFile);
+
+        return $this->driver;
     }
 
     /**
@@ -49,7 +91,7 @@ class File extends StorageDriver
      */
     public function set($name, $value, DateTime $ttl = null)
     {
-        // TODO: Implement set() method.
+        return $this->driver->fwrite($value);
     }
 
     /**
@@ -58,7 +100,7 @@ class File extends StorageDriver
      */
     public function persist($name)
     {
-        // TODO: Implement persist() method.
+        return true;
     }
 
     /**
@@ -67,7 +109,7 @@ class File extends StorageDriver
      */
     public function get($name)
     {
-        // TODO: Implement get() method.
+        return $this->driver->fgetss();
     }
 
     /**
@@ -76,7 +118,9 @@ class File extends StorageDriver
      */
     public function del($name)
     {
-        // TODO: Implement del() method.
+        $file = $this->targetFile($name);
+
+        unlink($file);
     }
 
     /**
@@ -85,7 +129,9 @@ class File extends StorageDriver
      */
     public function has($name)
     {
-        // TODO: Implement has() method.
+        $file = $this->targetFile($name, false);
+
+        return file_exists($file);
     }
 
     /**
