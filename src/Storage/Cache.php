@@ -80,7 +80,7 @@ class Cache implements CacheInterface
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
     public function isHit()
     {

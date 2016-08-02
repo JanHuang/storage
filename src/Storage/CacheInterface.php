@@ -46,7 +46,7 @@ interface CacheInterface
     public function expire(DateTime $dateTime);
 
     /**
-     * @return mixed
+     * @return bool
      */
     public function isHit();
 }
