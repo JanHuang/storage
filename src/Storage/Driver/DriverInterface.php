@@ -10,6 +10,8 @@
 
 namespace FastD\Storage\Driver;
 
+use DateTime;
+
 /**
  * Interface DriverInterface
  *
@@ -23,4 +25,43 @@ interface DriverInterface
      * @return static
      */
     public static function connect(array $config = null, $flag = false);
+
+    /**
+     * @param $name
+     * @param $value
+     * @param DateTime|null $ttl
+     * @return mixed
+     */
+    public function set($name, $value, DateTime $ttl = null);
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function persist($name);
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function get($name);
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function del($name);
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function has($name);
+
+    /**
+     * @param $name
+     * @param DateTime|null $ttl
+     * @return mixed
+     */
+    public function expire($name, DateTime $ttl);
 }

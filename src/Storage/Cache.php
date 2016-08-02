@@ -1,9 +1,5 @@
 <?php
-/**
- * @author: RunnerLee
- * @email: runnerleer@gmail.com
- * @time: 16-8-1 下午5:47
- */
+
 namespace FastD\Storage;
 
 use DateTime;
@@ -41,7 +37,7 @@ class Cache implements CacheInterface
     {
         $this->name = $name;
 
-        $this->setCache($content, $dateTime);
+        $this->setContent($content, $dateTime);
     }
 
     /**
@@ -88,6 +84,6 @@ class Cache implements CacheInterface
      */
     public function isHit()
     {
-
+        return !empty($this->getContent());
     }
 }

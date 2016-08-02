@@ -34,13 +34,21 @@ class Storage implements StorageInterface
     protected $driver;
 
     /**
+     * @var null|string
+     */
+    protected $prefix;
+
+    /**
      * Storage constructor.
      *
      * @param DriverInterface $driver
+     * @param string|null $prefix
      */
-    public function __construct(DriverInterface $driver)
+    public function __construct(DriverInterface $driver, $prefix = null)
     {
         $this->driver = $driver;
+
+        $this->prefix = $prefix;
     }
 
     /**
@@ -50,11 +58,15 @@ class Storage implements StorageInterface
      */
     public function getCache($name)
     {
-        if (!$this->hasCache($name)) {
-            throw new InvalidArgumentException($name);
+        if ($this->driver->has($name)) {
+            $this->caches[$name] = new Cache($name, $this->driver->get($name));
         }
 
-        return $this->caches[$name];
+        if ($this->hasCache($name)) {
+            return $this->caches[$name];
+        }
+
+        throw new InvalidArgumentException($name);
     }
 
     /**
@@ -74,6 +86,8 @@ class Storage implements StorageInterface
     {
         $this->caches[$cache->getName()] = $cache;
 
+        $this->driver->set($cache->getName(), $cache->getContent());
+
         return $this;
     }
 
@@ -85,6 +99,8 @@ class Storage implements StorageInterface
     {
         $this->caches[$cache->getName()] = $cache;
 
+        $this->driver->persist($cache->getName());
+
         return $this;
     }
 
@@ -93,15 +109,21 @@ class Storage implements StorageInterface
      */
     public function clearCaches()
     {
-        // TODO: Implement clearCaches() method.
+        foreach ($this->caches as $cache) {
+            $this->deleteCaches([$cache->getName()]);
+        }
     }
 
     /**
-     * @param array $name
+     * @param array $caches
      * @return bool
      */
-    public function deleteCaches(array $name)
+    public function deleteCaches(array $caches)
     {
-        // TODO: Implement deleteCaches() method.
+        foreach ($caches as $cache) {
+            if ($this->driver->del($cache)) {
+                unset($this->caches[$cache]);
+            }
+        }
     }
 }

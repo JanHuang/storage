@@ -13,19 +13,20 @@
 
 namespace FastD\Storage\Driver\Redis;
 
-use FastD\Storage\Driver\DriverInterface;
+use DateTime;
+use FastD\Storage\Driver\StorageDriver;
 
 /**
  * Class Redis
  *
  * @package FastD\Storage\Redis
  */
-class Redis implements DriverInterface
+class Redis extends StorageDriver
 {
     /**
      * @var \Redis
      */
-    protected static $storage;
+    protected $redis;
 
     /**
      * Redis constructor.
@@ -37,44 +38,29 @@ class Redis implements DriverInterface
         'timeout' => 0.0
     ])
     {
-        static::$storage = new \Redis();
+        $this->redis = new \Redis();
 
-        if (!static::$storage->connect($config['host'], $config['port'] ?? '6379', $config['timeout'] ?? 0.0)) {
+        if (!$this->redis->connect($config['host'], $config['port'] ?? '6379', $config['timeout'] ?? 0.0)) {
             throw new \RuntimeException(sprintf('Host["%s"] is not connections.', $config['host'] . ':' . ($config['port'] ?? '6379')));
         }
 
         if (isset($config['auth'])) {
-            static::$storage->auth($config['auth']);
+            $this->redis->auth($config['auth']);
         }
-    }
-
-    /**
-     * @param array $config
-     * @param bool $flag
-     * @return \Redis
-     */
-    public static function connect(array $config = null, $flag = false)
-    {
-        if (null === static::$storage || $flag) {
-            $redis = new static($config);
-            unset($redis);
-        }
-
-        return static::$storage;
     }
 
     /**
      * @param $name
      * @param $value
-     * @param int $ttl
+     * @param DateTime|null $ttl
      * @return mixed
      */
-    public function set($name, $value, $ttl = 0)
+    public function set($name, $value, DateTime $ttl = null)
     {
-        $result = static::$storage->set($name, $value);
+        $result = $this->redis->set($name, $value);
 
-        if (!empty($ttl)) {
-            static::$storage->expire($name, $ttl);
+        if (null !== $ttl) {
+            $this->expire($name, $ttl);
         }
 
         return $result;
@@ -86,16 +72,7 @@ class Redis implements DriverInterface
      */
     public function get($name)
     {
-        return static::$storage->get($name);
-    }
-
-    /**
-     * @param $name
-     * @return mixed
-     */
-    public function has($name)
-    {
-        return static::$storage->exists($name);
+        return $this->redis->get($name);
     }
 
     /**
@@ -104,33 +81,34 @@ class Redis implements DriverInterface
      */
     public function del($name)
     {
-        return static::$storage->del($name);
+        return $this->redis->del($name);
     }
 
     /**
      * @param $name
      * @return mixed
      */
-    public function ttl($name)
+    public function has($name)
     {
-        return static::$storage->ttl($name);
+        return $this->redis->exists($name);
     }
 
     /**
      * @param $name
-     * @param $ttl
+     * @param DateTime|null $ttl
      * @return mixed
      */
-    public function expire($name, $ttl)
+    public function expire($name, DateTime $ttl)
     {
-        return static::$storage->expire($name, $ttl);
+        return $this->redis->expireAt($name, $ttl->getTimestamp());
     }
 
     /**
+     * @param $name
      * @return mixed
      */
-    public function isHit()
+    public function persist($name)
     {
-        return true;
+        return $this->redis->persist($name);
     }
 }
