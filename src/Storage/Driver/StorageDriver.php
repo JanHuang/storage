@@ -18,23 +18,34 @@ namespace FastD\Storage\Driver;
 abstract class StorageDriver implements DriverInterface
 {
     /**
-     * @var mixed
+     * @var static
      */
     protected static $storage;
 
     /**
+     * @var mixed
+     */
+    protected $driver;
+
+    /**
      * @param array $config
      * @param bool $flag
-     * @return static
+     * @return mixed
      */
     public static function connect(array $config = null, $flag = false)
     {
         if (null === static::$storage || $flag) {
-            $storage = new static($config);
-            static::$storage = $storage;
-            unset($storage);
+            static::$storage = new static($config);
         }
 
-        return static::$storage;
+        return static::$storage->getDriverInstance();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDriverInstance()
+    {
+        return $this->driver;
     }
 }

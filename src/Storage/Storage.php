@@ -58,11 +58,12 @@ class Storage implements StorageInterface
      */
     public function getCache($name)
     {
-        if ($this->driver->has($name)) {
-            $this->caches[$name] = new Cache($name, $this->driver->get($name));
+        if ($this->hasCache($name)) {
+            return $this->caches[$name];
         }
 
-        if ($this->hasCache($name)) {
+        if ($this->driver->has($name)) {
+            $this->caches[$name] = new Cache($name, unserialize($this->driver->get($name)));
             return $this->caches[$name];
         }
 
@@ -86,7 +87,7 @@ class Storage implements StorageInterface
     {
         $this->caches[$cache->getName()] = $cache;
 
-        $this->driver->set($cache->getName(), $cache->getContent());
+        $this->driver->set($cache->getName(), serialize($cache->getContent()));
 
         return $this;
     }

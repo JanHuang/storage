@@ -24,11 +24,6 @@ use FastD\Storage\Driver\StorageDriver;
 class Redis extends StorageDriver
 {
     /**
-     * @var \Redis
-     */
-    protected $redis;
-
-    /**
      * Redis constructor.
      * @param array|null $config
      */
@@ -38,14 +33,14 @@ class Redis extends StorageDriver
         'timeout' => 0.0
     ])
     {
-        $this->redis = new \Redis();
+        $this->driver = new \Redis();
 
-        if (!$this->redis->connect($config['host'], $config['port'] ?? '6379', $config['timeout'] ?? 0.0)) {
+        if (!$this->driver->connect($config['host'], $config['port'] ?? '6379', $config['timeout'] ?? 0.0)) {
             throw new \RuntimeException(sprintf('Host["%s"] is not connections.', $config['host'] . ':' . ($config['port'] ?? '6379')));
         }
 
         if (isset($config['auth'])) {
-            $this->redis->auth($config['auth']);
+            $this->driver->auth($config['auth']);
         }
     }
 
@@ -57,7 +52,7 @@ class Redis extends StorageDriver
      */
     public function set($name, $value, DateTime $ttl = null)
     {
-        $result = $this->redis->set($name, $value);
+        $result = $this->driver->set($name, $value);
 
         if (null !== $ttl) {
             $this->expire($name, $ttl);
@@ -72,7 +67,7 @@ class Redis extends StorageDriver
      */
     public function get($name)
     {
-        return $this->redis->get($name);
+        return $this->driver->get($name);
     }
 
     /**
@@ -81,7 +76,7 @@ class Redis extends StorageDriver
      */
     public function del($name)
     {
-        return $this->redis->del($name);
+        return $this->driver->del($name);
     }
 
     /**
@@ -90,7 +85,7 @@ class Redis extends StorageDriver
      */
     public function has($name)
     {
-        return $this->redis->exists($name);
+        return $this->driver->exists($name);
     }
 
     /**
@@ -100,7 +95,7 @@ class Redis extends StorageDriver
      */
     public function expire($name, DateTime $ttl)
     {
-        return $this->redis->expireAt($name, $ttl->getTimestamp());
+        return $this->driver->expireAt($name, $ttl->getTimestamp());
     }
 
     /**
@@ -109,6 +104,6 @@ class Redis extends StorageDriver
      */
     public function persist($name)
     {
-        return $this->redis->persist($name);
+        return $this->driver->persist($name);
     }
 }

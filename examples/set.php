@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * @author    jan huang <bboyjanhuang@gmail.com>
@@ -8,14 +9,19 @@
  * @link      http://www.fast-d.cn/
  */
 
+use FastD\Storage\Cache;
 use FastD\Storage\Driver\Redis\Redis;
+use FastD\Storage\Storage;
 
 include __DIR__ . '/../vendor/autoload.php';
 
-$redis = Redis::connect([
+$storage = new Storage(new Redis([
     'host' => '11.11.11.22',
     'port' => '6379',
-]);
+]));
 
-print_r($redis);
+$storage->setCache(new Cache('name', 'janhuang'));
 
+$cache = $storage->getCache('name');
+
+echo $cache->getContent();

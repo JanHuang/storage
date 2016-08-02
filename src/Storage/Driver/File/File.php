@@ -13,20 +13,17 @@
 
 namespace FastD\Storage\File;
 
-use FastD\Storage\CacheInterface;
+use DateTime;
+use FastD\Storage\Driver\StorageDriver;
+use SplFileObject;
 
 /**
  * Class File
  *
  * @package FastD\Storage\File
  */
-class File extends \SplFileObject implements CacheInterface
+class File extends StorageDriver
 {
-    /**
-     * @var File
-     */
-    protected static $storage;
-
     /**
      * File constructor.
      * @param $file_name
@@ -41,38 +38,36 @@ class File extends \SplFileObject implements CacheInterface
             touch($file_name);
         }
 
-        parent::__construct($file_name, 'rw+');
+        $this->driver = new SplFileObject($file_name);
     }
 
     /**
-     * @param $content
-     * @param null $context
-     * @param int $ttl
-     * @return int
+     * @param $name
+     * @param $value
+     * @param DateTime|null $ttl
+     * @return mixed
      */
-    public function set($content, $context = null, $ttl = 0)
+    public function set($name, $value, DateTime $ttl = null)
     {
-        return file_put_contents($this->getPathname(), $content);
+        // TODO: Implement set() method.
     }
 
     /**
      * @param $name
      * @return mixed
      */
-    public function get($name = null)
+    public function persist($name)
     {
-        return file_get_contents($this->getPathname());
+        // TODO: Implement persist() method.
     }
 
     /**
-     * @deprecated
-     *
      * @param $name
      * @return mixed
      */
-    public function has($name)
+    public function get($name)
     {
-        return true;
+        // TODO: Implement get() method.
     }
 
     /**
@@ -81,58 +76,25 @@ class File extends \SplFileObject implements CacheInterface
      */
     public function del($name)
     {
-        return unlink($this->getFilename());
+        // TODO: Implement del() method.
     }
 
     /**
      * @param $name
      * @return mixed
      */
-    public function ttl($name)
+    public function has($name)
     {
-        return true;
+        // TODO: Implement has() method.
     }
 
     /**
      * @param $name
-     * @param $ttl
+     * @param DateTime|null $ttl
      * @return mixed
      */
-    public function expire($name, $ttl)
+    public function expire($name, DateTime $ttl)
     {
-        return true;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function isHit()
-    {
-        return true;
-    }
-
-    /**
-     * @param array $config
-     * @param bool $flag
-     * @return mixed
-     */
-    public static function connect(array $config = null, $flag = false)
-    {
-        return static::open($config['file'], $config['mode'] ?? 'rw', $flag);
-    }
-
-    /**
-     * @param $file
-     * @param string $mode
-     * @param bool $flag
-     * @return File
-     */
-    public static function open($file, $mode = 'rw', $flag = false)
-    {
-        if (null === static::$storage || $flag) {
-            static::$storage = new static($file, $mode);
-        }
-
-        return static::$storage;
+        // TODO: Implement expire() method.
     }
 }
