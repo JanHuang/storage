@@ -1,10 +1,6 @@
 <?php
-/**
- * @author: RunnerLee
- * @email: runnerleer@gmail.com
- * @time: 16-8-1 下午5:33
- */
-namespace FastD\Storage;
+
+namespace FastD\Storage\Exceptions;
 
 use Exception;
 

@@ -15,6 +15,7 @@
 namespace FastD\Storage;
 
 use FastD\Storage\Driver\DriverInterface;
+use FastD\Storage\Exceptions\InvalidArgumentException;
 
 /**
  * Class Storage
