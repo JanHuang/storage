@@ -11,11 +11,10 @@
  * Gmail: bboyjanhuang@gmail.com
  */
 
-namespace FastD\Storage\File;
+namespace FastD\Storage\Driver\File;
 
 use DateTime;
 use FastD\Storage\Driver\StorageDriver;
-use SplFileObject;
 
 /**
  * Class File
@@ -26,6 +25,9 @@ class File extends StorageDriver
 {
     const OPEN_MODE = 'rw+';
 
+    /**
+     * @var string
+     */
     protected $path;
 
     /**
@@ -60,7 +62,7 @@ class File extends StorageDriver
      */
     protected function targetFile($name, $force = true)
     {
-        $file = str_replace('//', '/', $this->path . DIRECTORY_SEPARATOR . $name);
+        $file = str_replace('//', '/', $this->path . DIRECTORY_SEPARATOR . $name) . '.cache';
 
         if (!file_exists($name) || $force) {
             $this->targetDirectory(dirname($file));
@@ -72,26 +74,19 @@ class File extends StorageDriver
 
     /**
      * @param $name
-     * @return SplFileObject
-     */
-    protected function openCacheFile($name)
-    {
-        $cacheFile = $this->targetFile($name);
-
-        $this->driver = new SplFileObject($cacheFile);
-
-        return $this->driver;
-    }
-
-    /**
-     * @param $name
      * @param $value
      * @param DateTime|null $ttl
      * @return mixed
      */
     public function set($name, $value, DateTime $ttl = null)
     {
-        return $this->driver->fwrite($value);
+        $file = $this->targetFile($name);
+
+        if (null !== $ttl) {
+            $this->expire($name, $ttl);
+        }
+
+        return file_put_contents($file, $value);
     }
 
     /**
@@ -109,7 +104,7 @@ class File extends StorageDriver
      */
     public function get($name)
     {
-        return $this->driver->fgetss();
+        return file_get_contents($this->targetFile($name));
     }
 
     /**
@@ -141,6 +136,6 @@ class File extends StorageDriver
      */
     public function expire($name, DateTime $ttl)
     {
-        // TODO: Implement expire() method.
+        return true;
     }
 }

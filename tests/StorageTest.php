@@ -12,27 +12,10 @@
  * WebSite: http://www.janhuang.me
  */
 
-namespace FastD\Storage\Tests;
-
-use FastD\Storage\Memcached\Memcached;
-use FastD\Storage\Redis\Redis;
-use FastD\Storage\Storage;
-
-class StorageTest extends \PHPUnit_Framework_TestCase
+class StorageTest extends PHPUnit_Framework_TestCase
 {
     public function testStorageInstance()
     {
-        $storage = new Storage([
-            'read' => [
-                'type' => 'redis',
-                'host' => '11.11.11.44',
-                'port' => 6379
-            ],
-            'mem' => [
-                'type' => 'memcached',
-                'host' => '11.11.11.44',
-                'port' => 11211
-            ],
-        ]);
+        echo 1;
     }
 }
