@@ -10,26 +10,20 @@
             "email": "bboyjanhuang@gmail.com"
         }
     ],
-    "minimum-stability": "stable",
     "require": {
-        "php": ">=7.0"
+        "php": ">=5.6"
     },
     "require-dev": {
         "phpunit/phpunit": "5.0"
     },
     "autoload": {
         "psr-4": {
-            "FastD\\": "src"
+            "FastD\\Storage\\": "src"
         }
     },
     "suggests": {
         "ext-redis": "Allow redis.",
         "ext-memcached": "Allow memcached.",
         "ext-ssdb": "Allow ssdb."
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.0.x-dev"
-        }
     }
 }
