@@ -43,6 +43,10 @@ class Redis extends AbstractStorage implements CacheInterface
         if (isset($config['auth'])) {
             static::$storage->auth($config['auth']);
         }
+
+        if (isset($config['dbindex'])) {
+            static::$storage->select($config['dbindex']);
+        }
     }
 
     /**
